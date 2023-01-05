@@ -1,4 +1,6 @@
-export const skeletonData = [{
+import ICommit  from "../../components/Commit/types";
+
+export const skeletonData: ICommit[] = [{
   node_id: "",
   html_url: "",
   author: {
@@ -19,7 +21,7 @@ export const skeletonData = [{
     html_url: "",
   },
   commit: {
-    commiter: { date: "" },
+    committer: { date: "" },
     message: "",
   }
 }];
@@ -30,6 +32,7 @@ export interface Repository {
   full_name: string;
   default_branch: string;
   created_at: string;
+  html_url: string;
   owner: {
     login: string;
     html_url: string;

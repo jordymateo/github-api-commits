@@ -4,8 +4,10 @@ import { BranchesOutlined } from '@ant-design/icons';
 import { CommitProps, ICommit } from './types';
 import styles from './styles.module.scss';
 import { CommitIcon } from '../Icons';
+import { timeAgo } from '../../utils/timeFormat';
 
-const Commit: FC<CommitProps> = ({ node_id, html_url, commit, author, loading }) => {
+const Commit: FC<CommitProps> = ({ html_url, commit, author, loading }) => {
+  console.log(commit);
   return (
     <List.Item>
       <Skeleton loading={loading} active avatar>
@@ -18,6 +20,12 @@ const Commit: FC<CommitProps> = ({ node_id, html_url, commit, author, loading })
             <label>Commited by</label>
             <Avatar size={30} src={author.avatar_url} />
             <a href={author.html_url} target="_blank">{author.login}</a>
+          </div>
+          <span>•</span>
+          <div>
+            {commit?.committer?.date ? (
+              <p>Committed {timeAgo.format(new Date(commit.committer.date))}</p>
+            ) : null}
           </div>
         </div>
       </Skeleton>

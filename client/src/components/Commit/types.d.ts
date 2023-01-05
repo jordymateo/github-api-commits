@@ -8,7 +8,7 @@ export interface ICommit {
     html_url: string;
   }
   commit: {
-    commiter: { date: string; }
+    committer: { date: string; }
     message: string;
   };
 }

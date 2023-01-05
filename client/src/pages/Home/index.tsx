@@ -4,8 +4,10 @@ import axios from 'axios';
 import React, { FC, useEffect, useState } from 'react';
 import Commit from '../../components/Commit';
 import { ICommit } from '../../components/Commit/types';
+import { timeAgo } from '../../utils/timeFormat';
 import styles from './styles.module.scss';
 import { Repository, skeletonData } from './types.d';
+
 
 const HomePage: FC = () => {
   const [repo, setRepo] = useState<Repository>();
@@ -44,7 +46,10 @@ const HomePage: FC = () => {
     <div className={styles.layout}>
       <div className={styles.container}>
         <div className={styles.header}>
-          <h2 className={styles.title}><b>Repository:</b> {repo?.name}</h2>
+          <h2 className={styles.title}>
+            <b>Repository: </b>
+            <a href={repo?.html_url} target="_blank">{repo?.name}</a>
+          </h2>
           <div className={styles.owner}>
             <h3>Owner: </h3>
             <Avatar size={40} src={repo?.owner.avatar_url} />
@@ -57,8 +62,9 @@ const HomePage: FC = () => {
               <p>Default branch: {repo?.default_branch}</p>
             </div>
             <div className={styles.right}>
-            <p>Create date: {repo?.created_at}</p>
-
+              {repo && (
+                <p>Creation date: {timeAgo.format(new Date(repo.created_at))}</p>
+              )}
             </div>
           </div>
           <List
