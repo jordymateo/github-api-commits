@@ -30,13 +30,6 @@ const Commit: FC<CommitProps> = ({ html_url, commit, author, loading }) => {
           ) : null}
         </div>
       </Skeleton>
-      {/* <Skeleton loading={loading} active avatar>
-        <List.Item.Meta
-          avatar={<Avatar size={40} src={author.avatar_url} />}
-          title={<label className={styles.metaTitle}>Commited by <a href={author.html_url} target="_blank">{author.login}</a></label>}
-        />
-       <a href={html_url} target="_blank">{commit.message}</a>
-      </Skeleton> */}
     </List.Item>
   )
 }

@@ -2,19 +2,21 @@
 import { Avatar, Card, List, Typography } from 'antd';
 import axios from 'axios';
 import React, { FC, useEffect, useState } from 'react';
+import { Repository, skeletonData } from './types.d';
 import Commit from '../../components/Commit';
 import { ICommit } from '../../components/Commit/types';
 import { timeAgo } from '../../utils/timeFormat';
 import styles from './styles.module.scss';
-import { Repository, skeletonData } from './types.d';
+import InfiniteScroll from 'react-infinite-scroll-component';
 
+const perPage = 10;
 const { Title } = Typography;
-
 
 const HomePage: FC = () => {
   const [repo, setRepo] = useState<Repository>();
   const [commits, setCommits] = useState<ICommit[]>(skeletonData);
   const [loading, setLoading] = useState<boolean>(true);
+  const [page, setPage] = useState<number>(1);
 
   useEffect(() => {
     const repo = new AbortController();
@@ -27,7 +29,7 @@ const HomePage: FC = () => {
         console.error(error);
       });
 
-    axios.get(`${process.env.REACT_APP_API}/github/commits`, { signal: commits.signal })
+    axios.get(`${process.env.REACT_APP_API}/github/commits?per_page=${perPage}&page=${1}`, { signal: commits.signal })
       .then(({ data }) => {
         setTimeout(() => {
           setCommits(data);
@@ -73,18 +75,31 @@ const HomePage: FC = () => {
               )}
             </div>
           </div>
-          <List
-            itemLayout="vertical"
-            size="large"
-            dataSource={commits}
-            renderItem={(item) => (
+          <InfiniteScroll
+            dataLength={perPage}
+            next={() => console.log('load next')}
+            hasMore={true}
+            loader={
               <Commit
-                key={item.node_id}
-                loading={loading}
-                {...item}
+                loading={true}
+                {...skeletonData[0]}
               />
-            )}
-          />
+            }
+          >
+            <List
+              itemLayout="vertical"
+              size="large"
+              dataSource={commits}
+              renderItem={(item) => (
+                <Commit
+                  key={item.node_id}
+                  loading={loading}
+                  {...item}
+                />
+              )}
+            />
+          </InfiniteScroll>
+
         </Card>
 
       </div>
