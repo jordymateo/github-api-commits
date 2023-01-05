@@ -13,6 +13,8 @@ Project is created with:
 * React version: 18.2
 * NestJs version: 9.0.0
 * Typescript version: 4.4.2 (Client) & 4.7.4 (Server)
+
+> Tested using node v16.14.0
 	
 ## Setup
 To run this project, install it locally using yarn:
@@ -32,3 +34,5 @@ $ cd client
 $ yarn install
 $ yarn start
 ```
+
+> If the application does not start automatically go to: [http://localhost:3000/](http://localhost:3000/)
