@@ -16,3 +16,14 @@ body {
     margin-top: 12px;
   }
 }
+
+.ant-skeleton .ant-skeleton-header .ant-skeleton-avatar-lg {
+  width: 30px;
+  height: 30px;
+}
+.ant-skeleton-with-avatar .ant-skeleton-content .ant-skeleton-title +.ant-skeleton-paragraph {
+  margin-block-start: 16px;
+  & > :nth-child(2) {
+    display: none;
+  }
+}
