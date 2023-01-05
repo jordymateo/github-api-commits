@@ -1,3 +1,18 @@
 body {
-  background-color: #202124;
+  background-color: #F8F8F8;
+}
+
+.ant-list-lg .ant-list-item {
+  padding: 10px 24px;
+}
+
+.ant-list .ant-list-item .ant-list-item-meta {
+  align-items: center;
+  margin-bottom: 0;
+  .ant-list-item-meta-avatar {
+    margin-top: 4px;
+  }
+  .ant-list-item-meta-title {
+    margin-top: 12px;
+  }
 }
