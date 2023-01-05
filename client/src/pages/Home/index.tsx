@@ -1,5 +1,5 @@
 
-import { Avatar, Card, List } from 'antd';
+import { Avatar, Card, List, Typography } from 'antd';
 import axios from 'axios';
 import React, { FC, useEffect, useState } from 'react';
 import Commit from '../../components/Commit';
@@ -7,6 +7,8 @@ import { ICommit } from '../../components/Commit/types';
 import { timeAgo } from '../../utils/timeFormat';
 import styles from './styles.module.scss';
 import { Repository, skeletonData } from './types.d';
+
+const { Title } = Typography;
 
 
 const HomePage: FC = () => {
@@ -46,24 +48,28 @@ const HomePage: FC = () => {
     <div className={styles.layout}>
       <div className={styles.container}>
         <div className={styles.header}>
-          <h2 className={styles.title}>
+          <Title level={2}>
             <b>Repository: </b>
             <a href={repo?.html_url} target="_blank">{repo?.name}</a>
-          </h2>
-          <div className={styles.owner}>
-            <h3>Owner: </h3>
-            <Avatar size={40} src={repo?.owner.avatar_url} />
+          </Title>
+          <Title level={4} className={styles.owner}>
+            Owner:
+            <Avatar size={30} src={repo?.owner.avatar_url} />
             <a href={repo?.owner.html_url} target="_blank">{repo?.owner.login}</a>
-          </div>
+          </Title>
         </div>
         <Card className={styles.card}>
           <div className={styles.info}>
             <div className={styles.left}>
-              <p>Default branch: {repo?.default_branch}</p>
+              <Title level={5}>
+                Default branch: <b>{repo?.default_branch}</b>
+              </Title>
             </div>
             <div className={styles.right}>
               {repo && (
-                <p>Creation date: {timeAgo.format(new Date(repo.created_at))}</p>
+                <Title level={5}>
+                  Creation date: <b>{timeAgo.format(new Date(repo.created_at))}</b>
+                </Title>
               )}
             </div>
           </div>

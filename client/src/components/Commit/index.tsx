@@ -1,10 +1,11 @@
 import React, { FC } from 'react';
-import { Avatar, Card, List, Skeleton } from 'antd';
-import { BranchesOutlined } from '@ant-design/icons';
+import { Avatar, List, Skeleton, Typography } from 'antd';
 import { CommitProps, ICommit } from './types';
 import styles from './styles.module.scss';
 import { CommitIcon } from '../Icons';
 import { timeAgo } from '../../utils/timeFormat';
+
+const { Text, Link } = Typography;
 
 const Commit: FC<CommitProps> = ({ html_url, commit, author, loading }) => {
   console.log(commit);
@@ -13,20 +14,20 @@ const Commit: FC<CommitProps> = ({ html_url, commit, author, loading }) => {
       <Skeleton loading={loading} active avatar>
         <List.Item.Meta
           avatar={<CommitIcon />}
-          title={<a href={html_url} target="_blank">{commit.message}</a>}
+          title={<Link href={html_url} target="_blank">{commit.message}</Link>}
         />
         <div className={styles.content}>
-          <div className={styles.commitedBy}>
-            <label>Commited by</label>
+          <Text className={styles.commitedBy}>
+            Commited by
             <Avatar size={30} src={author.avatar_url} />
-            <a href={author.html_url} target="_blank">{author.login}</a>
-          </div>
+            <Link href={author.html_url} target="_blank">{author.login}</Link>
+          </Text>
           <span>•</span>
-          <div>
-            {commit?.committer?.date ? (
-              <p>Committed {timeAgo.format(new Date(commit.committer.date))}</p>
-            ) : null}
-          </div>
+          {commit?.committer?.date ? (
+            <Text>
+              Committed {timeAgo.format(new Date(commit.committer.date))}
+            </Text>
+          ) : null}
         </div>
       </Skeleton>
       {/* <Skeleton loading={loading} active avatar>
